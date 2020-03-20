@@ -1,5 +1,9 @@
 import React from 'react';
 
+/*
+  The line animation is quite simple. Move to p1 and draw to p2.
+  When animating, draw to p2.x - the stepProgress and the previously covered steps (the step offset)
+*/
 const Line = ({p1, p2, show, animateLeft=false, isAnimating, stepProgress, stepOffset, color}) => {  
   return (    
     show ? <path 

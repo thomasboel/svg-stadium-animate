@@ -45,6 +45,14 @@ const category2 = [
   { id: 10, title: "Tile 5", dimensions: { width: "85", height: "32" } },
 ];
 
+/*
+  Note to any programmer. The implementation of the module in this file is far from perfect.
+  The idea would probably be to have some sort of array that stores the current progress of the individual Filter component.
+  That way you can show some and hide others, perhaps even conditionally render them so the Components will also move around in your container.
+
+  Note that the title is not animated as of yet, not sure if it should be tho.
+*/
+
 function App() {
 
   const blue = "#009fda";
