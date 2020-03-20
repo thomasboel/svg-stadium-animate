@@ -61,7 +61,7 @@ const Filter = ({id, dimensions, title, handleOnPress, progress, color="#000", f
         />
         <Line 
           p1={p1} p2={p2} 
-          show={true} 
+          show={stepProgress > 0} 
           isAnimating={stepProgress > 0 && stepProgress < l} 
           stepProgress={stepProgress} 
           stepOffset={0} 
