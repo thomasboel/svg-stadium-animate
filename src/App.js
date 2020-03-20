@@ -19,6 +19,16 @@ const FlexColumn = styled.div`
   justify-content: center;
 `;
 
+const Button = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 150px;
+  height: 50px;
+  background-color: #099fda;
+`;
+
 const category1 = [
   { id: 1, title: "Tile 1", dimensions: { width: "100", height: "32" } },
   { id: 2, title: "Tile 2", dimensions: { width: "125", height: "32" } },
@@ -44,11 +54,12 @@ function App() {
   let animationSpeed = 1;
   
   let flag = false;
+  
   setInterval(() => {
     if (!flag && progress < 100) {
       setProgress(progress + 1);
+      flag = true;
     } 
-    flag = true;
   }, animationSpeed);
 
   return (
@@ -70,6 +81,7 @@ function App() {
               dimensions={filter.dimensions}
               title={filter.title}
               progress={progress}
+              handleOnPress={(id) => {}}
               color={blue}
             />
           ))}
@@ -89,6 +101,7 @@ function App() {
               dimensions={filter.dimensions}
               title={filter.title}
               progress={progress}
+              handleOnPress={(id) => {}}
               color={yellow}
             />
           ))}

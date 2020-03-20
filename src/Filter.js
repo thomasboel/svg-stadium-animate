@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Filter = ({id, dimensions, title, handleOnPress, progress, color="#000"}) => {
+const Filter = ({id, dimensions, title, handleOnPress, progress, color="#000", fill="transparent"}) => {
   let p1 = { x: dimensions.height/2, y: 1 };
   let p2 = { x: dimensions.width - dimensions.height/2, y: 1 }
   let p3 = { x: dimensions.height/2 , y: dimensions.height-1 };
