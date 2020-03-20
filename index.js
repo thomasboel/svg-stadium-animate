@@ -1,15 +1,51 @@
 import React from 'react';
-import styled from 'styled-components';
-import Line from './Line';
-import Arc from './Arc';
 
-const Wrapper = styled.div`
-  margin: 0px 6px 10px 0px;
-  
-  &:hover {
-    cursor: pointer;
-  }
-`;
+const Arc = ({centerPos, radius, show, isAnimating, stepProgress, stepOffset, leftCircle=false, color}) => {
+  // Because the entire component is shifted 1 pixel downwards, we need to subtract 1 from the radius.
+  let offsetRadius = radius - 1;
+  // Circle cirumfrence
+  let circumfrence = 2 * Math.PI * offsetRadius;
+  // The way we animate is shift the offset of the stroke dashes.
+  // If it's a left circle we take 1/4th of the circle circumfrence and add the step progress minus the step offset
+  // If it's a right circle we subtract the step progress minus the step offset
+  // Else just show the 1/4th which then becomes just the half circle.
+  let strokeDashoffset = isAnimating ? 
+    leftCircle ?
+    circumfrence/4 + (stepProgress-stepOffset)
+    : circumfrence/4 - (stepProgress-stepOffset) 
+  : circumfrence/4;
+
+  return (
+    show ? <circle 
+      stroke={isAnimating ? "#FFF" : color}
+      strokeWidth={isAnimating ? "2" : 1}
+      fill="none"
+      strokeDasharray={[circumfrence/2, circumfrence/2]} 
+      strokeDashoffset={leftCircle ? -strokeDashoffset : strokeDashoffset}
+      cx={centerPos.x} 
+      cy={centerPos.y} 
+      r={offsetRadius}
+    /> : null
+  );
+}
+
+/*
+  The line animation is quite simple. Move to p1 and draw to p2.
+  When animating, draw to p2.x - the stepProgress and the previously covered steps (the step offset)
+*/
+const Line = ({p1, p2, show, animateLeft=false, isAnimating, stepProgress, stepOffset, color}) => {  
+  return (    
+    show ? <path 
+      stroke={color} 
+      strokeWidth="1" 
+      fill="none" 
+      d={`
+        M ${p1.x},${p1.y} 
+        L ${isAnimating ? animateLeft ? p1.x - (stepProgress-stepOffset) : p1.x + (stepProgress-stepOffset) : p2.x},${p2.y}
+      `} 
+    /> : null
+  );
+}
 
 /**
  * @param {any} id
@@ -77,7 +113,7 @@ const Filter = ({id, dimensions, title, handleOnPress, progress, color="#000", s
 
   */
   return (    
-    <Wrapper style={style} onClick={() => handleOnPress(id)}>
+    <div style={style} onClick={() => handleOnPress(id)}>
       <svg height={dimensions.height} width={dimensions.width}>
         <Arc 
           centerPos={{ x: p2.x, y: dimensions.height/2 }} 
@@ -130,8 +166,8 @@ const Filter = ({id, dimensions, title, handleOnPress, progress, color="#000", s
         />
         {progress > 0 && <text x="50%" y="52%" dominantBaseline="middle" textAnchor="middle" fill={color} fontFamily="Roboto" fontWeight="300" fontSize="15px">{title}</text>}
       </svg>
-    </Wrapper>
+    </div>
   );
 }
 
-export default Filter;
+module.exports = Filter;
