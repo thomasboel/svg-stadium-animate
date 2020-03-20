@@ -58,14 +58,14 @@ function App() {
   const blue = "#009fda";
   const yellow = "#eaab00";
 
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(100);
   let animationSpeed = 1;
   
   let flag = false;
   
   setInterval(() => {
-    if (!flag && progress < 100) {
-      setProgress(progress + 1);
+    if (!flag && progress > 0) {
+      setProgress(progress - 1);
       flag = true;
     } 
   }, animationSpeed);

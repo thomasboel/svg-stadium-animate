@@ -128,7 +128,7 @@ const Filter = ({id, dimensions, title, handleOnPress, progress, color="#000", s
           animateLeft={true} 
           color={color}
         />
-        <text x="50%" y="52%" dominantBaseline="middle" textAnchor="middle" fill={color} fontFamily="Roboto" fontWeight="300" fontSize="15px">{title}</text>
+        {progress > 0 && <text x="50%" y="52%" dominantBaseline="middle" textAnchor="middle" fill={color} fontFamily="Roboto" fontWeight="300" fontSize="15px">{title}</text>}
       </svg>
     </Wrapper>
   );
